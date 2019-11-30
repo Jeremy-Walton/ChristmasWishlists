@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/ChristmasWishlists/static/css/main.53208b4e.chunk.css",
-    "main.js": "/ChristmasWishlists/static/js/main.1ad8caaa.chunk.js",
-    "main.js.map": "/ChristmasWishlists/static/js/main.1ad8caaa.chunk.js.map",
+    "main.css": "/ChristmasWishlists/static/css/main.02226719.chunk.css",
+    "main.js": "/ChristmasWishlists/static/js/main.e536ef64.chunk.js",
+    "main.js.map": "/ChristmasWishlists/static/js/main.e536ef64.chunk.js.map",
     "runtime-main.js": "/ChristmasWishlists/static/js/runtime-main.e53942ee.js",
     "runtime-main.js.map": "/ChristmasWishlists/static/js/runtime-main.e53942ee.js.map",
-    "static/js/2.1791c947.chunk.js": "/ChristmasWishlists/static/js/2.1791c947.chunk.js",
-    "static/js/2.1791c947.chunk.js.map": "/ChristmasWishlists/static/js/2.1791c947.chunk.js.map",
+    "static/js/2.bee5a658.chunk.js": "/ChristmasWishlists/static/js/2.bee5a658.chunk.js",
+    "static/js/2.bee5a658.chunk.js.map": "/ChristmasWishlists/static/js/2.bee5a658.chunk.js.map",
     "index.html": "/ChristmasWishlists/index.html",
-    "precache-manifest.402124fe94415e2bf1b45a0d6883594d.js": "/ChristmasWishlists/precache-manifest.402124fe94415e2bf1b45a0d6883594d.js",
+    "precache-manifest.f6275bff69be184ac7bbf2a65f1df638.js": "/ChristmasWishlists/precache-manifest.f6275bff69be184ac7bbf2a65f1df638.js",
     "service-worker.js": "/ChristmasWishlists/service-worker.js",
-    "static/css/main.53208b4e.chunk.css.map": "/ChristmasWishlists/static/css/main.53208b4e.chunk.css.map"
+    "static/css/main.02226719.chunk.css.map": "/ChristmasWishlists/static/css/main.02226719.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.e53942ee.js",
-    "static/js/2.1791c947.chunk.js",
-    "static/css/main.53208b4e.chunk.css",
-    "static/js/main.1ad8caaa.chunk.js"
+    "static/js/2.bee5a658.chunk.js",
+    "static/css/main.02226719.chunk.css",
+    "static/js/main.e536ef64.chunk.js"
   ]
 }
