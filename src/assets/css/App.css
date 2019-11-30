@@ -13,6 +13,7 @@ body {
 
   font-family: 'Product Sans';
   background: var(--secondary);
+  color: var(--white);
 }
 
 header {
@@ -36,7 +37,33 @@ header {
   z-index: 1;
 }
 
+.header-fix {
+  height: 64px;
+}
+
 .home-link {
   font-size: 1rem;
   color: var(--white);
+}
+
+.container {
+  margin: auto;
+  padding: 16px;
+}
+
+.wishlist-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.wishlist {
+  padding: 16px;
+  margin: 5px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
 }
