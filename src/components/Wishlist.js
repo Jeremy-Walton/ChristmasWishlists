@@ -9,21 +9,16 @@ export default class Wishlist extends React.Component {
     list: PropTypes.object.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { list: new List(props.list) };
-  }
-
   removeList() {
-    const { list } = this.state;
+    const { list, removeList } = this.props;
     const result = window.confirm(`Are you sure you want to delete the ${list.term}`);
     if (result) {
-      this.props.removeList(list.id)
+      removeList(list.id)
     }
   }
 
   render() {
-    const { list } = this.state;
+    const list = new List(this.props.list)
 
     return (
       <div className='wishlist'>
