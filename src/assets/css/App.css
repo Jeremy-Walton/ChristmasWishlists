@@ -1,0 +1,42 @@
+@import 'normalize.css';
+
+@import 'fonts.css';
+
+body {
+  /* Basic colors */
+  --white: #ffffff;
+  --black: #000000;
+
+  /* Theme colors */
+  --primary: #0a8d64;
+  --secondary: #282c34;
+
+  font-family: 'Product Sans';
+  background: var(--secondary);
+}
+
+header {
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.5);
+
+  height: 48px;
+  padding: 8px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+
+  color: var(--white);
+  background: var(--primary);
+  position: fixed;
+  width: calc(100% - 32px);
+  top: 0;
+  z-index: 1;
+}
+
+.home-link {
+  font-size: 1rem;
+  color: var(--white);
+}
