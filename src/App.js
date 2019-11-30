@@ -5,6 +5,8 @@ import './assets/css/App.css';
 
 import List from  './models/List';
 
+import Wishlist from  './components/Wishlist';
+
 export default class App extends React.Component {
   state = {
     term: '',
@@ -41,16 +43,19 @@ export default class App extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  onChange = (event) => {
+  updateTerm = (event) => {
     this.setState({ term: event.target.value });
   }
 
-  onSubmit = (event) => {
+  addList = (event) => {
     event.preventDefault()
+
+    // TODO: get term from form rather than state
+    // TODO: ignore blank input
 
     const { lists, term } = this.state
     const id = new Date().getTime();
-    const newList = new List({ id, term })
+    const newList = new List({ id, term, items: [] })
 
     this.setState({
       term: '',
@@ -59,6 +64,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { term, lists } = this.state;
+
     return (
       <div className="App">
         <header>
@@ -69,17 +76,12 @@ export default class App extends React.Component {
 
         <div className="container">
           <div className="wishlist-container">
-            {
-              Object.keys(this.state.lists).map((id, index) => {
-                const item = this.state.lists[id];
-                return <div className="wishlist" key={index}>{item.term}</div>
-              })
-            }
+            { Object.keys(lists).map((id, index) => <Wishlist key={index} list={lists[id]} />) }
           </div>
 
-          <form className="" onSubmit={this.onSubmit}>
-            <input value={this.state.term} onChange={this.onChange} />
-            <button>Submit</button>
+          <form className="add-list" onSubmit={this.addList}>
+            <input id="add-list" value={term} placeholder="List name" onChange={this.updateTerm} />
+            <button className="btn btn--primary">Add New List</button>
           </form>
         </div>
       </div>

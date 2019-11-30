@@ -1,6 +1,8 @@
 @import 'normalize.css';
 
-@import 'fonts.css';
+@import 'components/fonts.css';
+@import 'components/buttons.css';
+@import 'components/utilities.css';
 
 body {
   /* Basic colors */
@@ -9,6 +11,7 @@ body {
 
   /* Theme colors */
   --primary: #0a8d64;
+  --primary-light: #0CA776;
   --secondary: #282c34;
 
   font-family: 'Product Sans';
@@ -66,4 +69,22 @@ header {
   text-decoration: none;
   display: flex;
   flex-direction: column;
+
+  min-width: 300px;
+}
+
+input {
+  border: none;
+  padding: 5px;
+}
+
+.add-list {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-list button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }

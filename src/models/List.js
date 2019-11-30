@@ -1,6 +1,7 @@
 export default class List {
   constructor(data) {
-    this.id = data.id;
-    this.term = data.term;
+    this.id = data.id; // integer
+    this.term = data.term; // String
+    this.items = data.items; // Array
   }
 }
