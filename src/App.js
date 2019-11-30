@@ -3,8 +3,6 @@ import base from "./firebase";
 
 import './assets/css/App.css';
 
-import List from  './models/List';
-
 import Wishlist from  './components/Wishlist';
 
 export default class App extends React.Component {
@@ -18,8 +16,6 @@ export default class App extends React.Component {
 
     const localStorageRef = localStorage.getItem('christmas-wishlists');
     const data = localStorageRef ? JSON.parse(localStorageRef) : { lists: {} };
-    // TODO: rehidrate items
-      // let lists = data.lists.map(list => new List(list));
 
     this.state = {
       term: '',
@@ -59,7 +55,7 @@ export default class App extends React.Component {
     this.setState(prevState => {
       const { lists, term } = prevState
       const id = new Date().getTime();
-      const newList = new List({ id, term, items: [] });
+      const newList = { id, term, items: [] };
 
       return { term: '', lists: { ...lists, [id]: newList } };
     });

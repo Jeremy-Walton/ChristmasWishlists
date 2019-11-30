@@ -1,22 +1,29 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
+import List from '../models/List';
+
 export default class Wishlist extends React.Component {
   static propTypes = {
     removeList: PropTypes.func.isRequired,
     list: PropTypes.object.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = { list: new List(props.list) };
+  }
+
   removeList() {
-    const { list, removeList } = this.props;
+    const { list } = this.state;
     const result = window.confirm(`Are you sure you want to delete the ${list.term}`);
     if (result) {
-      removeList(list.id)
+      this.props.removeList(list.id)
     }
   }
 
   render() {
-    const { list } = this.props;
+    const { list } = this.state;
 
     return (
       <div className='wishlist'>
