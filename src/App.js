@@ -53,7 +53,11 @@ export default class App extends React.Component {
       this.setState(prevState => {
         const { lists, term } = prevState
         const id = new Date().getTime();
-        const newList = { id, term, items: [] };
+        const newList = {
+          id,
+          term,
+          items: []
+        };
 
         return { term: '', lists: { ...lists, [id]: newList } };
       });
@@ -63,6 +67,7 @@ export default class App extends React.Component {
   removeList = id => {
     let { ...newLists } = this.state.lists;
     newLists[id] = null;
+    // TODO: remove items that are associated
     this.setState({ lists: newLists });
   }
 

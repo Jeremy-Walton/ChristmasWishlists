@@ -1,13 +1,42 @@
 import React from 'react';
 import PropTypes from "prop-types";
-
-import List from '../models/List';
+import base from "../firebase";
 
 export default class Wishlist extends React.Component {
   static propTypes = {
     removeList: PropTypes.func.isRequired,
     list: PropTypes.object.isRequired
   };
+
+  constructor(props) {
+    super(props);
+
+    const localStorageRef = localStorage.getItem('christmas-wishlists-items');
+    const data = localStorageRef ? JSON.parse(localStorageRef) : { items: {} };
+
+    this.state = {
+      term: '',
+      items: data.items
+    };
+  }
+
+  componentDidMount() {
+    this.ref = base.syncState('/items', {
+      context: this,
+      state: 'items'
+    });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      'christmas-wishlists-items',
+      JSON.stringify(this.state)
+    );
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   removeList() {
     const { list, removeList } = this.props;
@@ -17,8 +46,48 @@ export default class Wishlist extends React.Component {
     }
   }
 
+  updateTerm = event => {
+    this.setState({ term: event.target.value });
+  }
+
+  addItem = event => {
+    event.preventDefault()
+
+    const { list } = this.props;
+
+    if (this.state.term) {
+      this.setState(prevState => {
+        const { items, term } = prevState
+        const id = new Date().getTime();
+        const newItem = { id, list_id: list.id, text: term };
+
+        return { term: '', items: { ...items, [id]: newItem } };
+      });
+    }
+  }
+
+  renderItems() {
+    const { items } = this.state;
+    const { list } = this.props;
+
+    const filteredItems = {}
+    Object.keys(items).forEach(key => {
+      const item = items[key];
+      if (item.list_id === list.id) {
+        filteredItems[item.id] = item;
+      }
+    })
+
+    return (
+      <div>
+        {Object.keys(filteredItems).map((id, index) => <div key={index}>{items[id].text}</div>)}
+      </div>
+    )
+  }
+
   render() {
-    const list = new List(this.props.list)
+    const { term } = this.state;
+    const { list } = this.props;
 
     return (
       <div className='wishlist'>
@@ -26,6 +95,11 @@ export default class Wishlist extends React.Component {
           <h1 className='mt-0'>{list.term}</h1>
           <h1 className='wishlist__close' onClick={this.removeList.bind(this)}>X</h1>
         </div>
+        {this.renderItems()}
+        <form className="add-list" onSubmit={this.addItem}>
+          <input value={term} placeholder="Item" onChange={this.updateTerm} />
+          <button type='submit' className="btn btn--primary">Add</button>
+        </form>
       </div>
     );
   }
