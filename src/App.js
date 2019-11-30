@@ -80,18 +80,16 @@ export default class App extends React.Component {
           <div>Christmas Wishlists</div>
           <a href='https://www.launchtabs.com/' className='home-link'>Other Cool Stuff</a>
         </header>
-        <div className='header-fix'></div>
 
         <div className="container">
           <div className="wishlist-container">
             {Object.keys(lists).map((id, index) => <Wishlist key={index} removeList={this.removeList} list={lists[id]} />) }
           </div>
-
-          <form className="add-list" onSubmit={this.addList}>
-            <input value={term} placeholder="List name" onChange={this.updateTerm} />
-            <button type='submit' className="btn btn--primary">Add New List</button>
-          </form>
         </div>
+        <form className="add-form add-list" onSubmit={this.addList}>
+          <input value={term} placeholder="List name" onChange={this.updateTerm} />
+          <button type='submit' className="btn btn--primary">Add New List</button>
+        </form>
       </div>
     );
   }

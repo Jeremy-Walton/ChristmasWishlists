@@ -40,7 +40,7 @@ export default class Wishlist extends React.Component {
 
   removeList() {
     const { list, removeList } = this.props;
-    const result = window.confirm(`Are you sure you want to delete the ${list.term}`);
+    const result = window.confirm(`Are you sure you want to delete ${list.term}`);
     if (result) {
       removeList(list.id)
     }
@@ -66,6 +66,15 @@ export default class Wishlist extends React.Component {
     }
   }
 
+  removeItem = id => {
+    let { ...newItems } = this.state.items;
+    const result = window.confirm(`Are you sure you want to delete ${newItems[id].text}`);
+    if (result) {
+      newItems[id] = null;
+      this.setState({ items: newItems });
+    }
+  }
+
   renderItems() {
     const { items } = this.state;
     const { list } = this.props;
@@ -79,8 +88,17 @@ export default class Wishlist extends React.Component {
     })
 
     return (
-      <div>
-        {Object.keys(filteredItems).map((id, index) => <div key={index}>{items[id].text}</div>)}
+      <div className="item-container">
+        {
+          Object.keys(filteredItems).map((id, index) => {
+            return (
+              <div key={index} className="item">
+                <div className="item__text">{items[id].text}</div>
+                <div className="item__close" onClick={this.removeItem.bind(this, id)}>X</div>
+              </div>
+            );
+          })
+        }
       </div>
     )
   }
@@ -96,7 +114,7 @@ export default class Wishlist extends React.Component {
           <h1 className='wishlist__close' onClick={this.removeList.bind(this)}>X</h1>
         </div>
         {this.renderItems()}
-        <form className="add-list" onSubmit={this.addItem}>
+        <form className="add-form" onSubmit={this.addItem}>
           <input value={term} placeholder="Item" onChange={this.updateTerm} />
           <button type='submit' className="btn btn--primary">Add</button>
         </form>
