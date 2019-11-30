@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/christmas-wishlists/static/css/main.00c824d1.chunk.css",
+    "main.js": "/christmas-wishlists/static/js/main.32de790a.chunk.js",
+    "main.js.map": "/christmas-wishlists/static/js/main.32de790a.chunk.js.map",
+    "runtime-main.js": "/christmas-wishlists/static/js/runtime-main.8bd0ad1e.js",
+    "runtime-main.js.map": "/christmas-wishlists/static/js/runtime-main.8bd0ad1e.js.map",
+    "static/js/2.8d073bd3.chunk.js": "/christmas-wishlists/static/js/2.8d073bd3.chunk.js",
+    "static/js/2.8d073bd3.chunk.js.map": "/christmas-wishlists/static/js/2.8d073bd3.chunk.js.map",
+    "index.html": "/christmas-wishlists/index.html",
+    "precache-manifest.083c031129c335544fa4246f1168a95a.js": "/christmas-wishlists/precache-manifest.083c031129c335544fa4246f1168a95a.js",
+    "service-worker.js": "/christmas-wishlists/service-worker.js",
+    "static/css/main.00c824d1.chunk.css.map": "/christmas-wishlists/static/css/main.00c824d1.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8bd0ad1e.js",
+    "static/js/2.8d073bd3.chunk.js",
+    "static/css/main.00c824d1.chunk.css",
+    "static/js/main.32de790a.chunk.js"
+  ]
+}
