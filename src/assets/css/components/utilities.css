@@ -1,7 +1,15 @@
+.mt-0 {
+  margin-top: 0px;
+}
+
 .mt-1 {
   margin-top: 10px;
 }
 
 .mt-2 {
   margin-top: 20px;
+}
+
+.font-small {
+  font-size: small;
 }

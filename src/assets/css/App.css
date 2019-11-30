@@ -4,6 +4,8 @@
 @import 'components/buttons.css';
 @import 'components/utilities.css';
 
+@import 'components/wishlist.css';
+
 body {
   /* Basic colors */
   --white: #ffffff;
@@ -11,8 +13,10 @@ body {
 
   /* Theme colors */
   --primary: #0a8d64;
-  --primary-light: #0CA776;
   --secondary: #282c34;
+  --tertiary: #ff6961;
+
+  --primary-light: #0CA776;
 
   font-family: 'Product Sans';
   background: var(--secondary);
@@ -52,25 +56,6 @@ header {
 .container {
   margin: auto;
   padding: 16px;
-}
-
-.wishlist-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-}
-
-.wishlist {
-  padding: 16px;
-  margin: 5px;
-  border: 1px solid var(--primary);
-  border-radius: 8px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-
-  min-width: 300px;
 }
 
 input {

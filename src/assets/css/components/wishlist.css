@@ -1,0 +1,30 @@
+.wishlist-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.wishlist {
+  padding: 16px;
+  margin: 5px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+
+  min-width: 300px;
+}
+
+.wishlist__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wishlist__close {
+  color: var(--tertiary);
+  margin-top: 0;
+  font-size: small;
+  cursor: pointer;
+}

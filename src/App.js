@@ -13,22 +13,25 @@ export default class App extends React.Component {
     lists: {}
   };
 
-  componentDidMount() {
-    // first reinstate our localStorage
-    const localStorageRef = localStorage.getItem('christmas-wishlists');
-    if (localStorageRef) {
-      const data = JSON.parse(localStorageRef);
+  constructor() {
+    super()
 
-      // TODO: rehidrate items
+    const localStorageRef = localStorage.getItem('christmas-wishlists');
+    const data = localStorageRef ? JSON.parse(localStorageRef) : { lists: {} };
+    // TODO: rehidrate items
       // let lists = data.lists.map(list => new List(list));
 
-      this.setState({ term: '', lists: data.lists });
-    }
+    this.state = {
+      term: '',
+      lists: data.lists
+    };
+  }
 
-    // next sync with database
-    this.ref = base.syncState('/', {
+
+  componentDidMount() {
+    this.ref = base.syncState('/lists', {
       context: this,
-      state: "lists"
+      state: 'lists'
     });
   }
 
@@ -43,24 +46,29 @@ export default class App extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  updateTerm = (event) => {
+  updateTerm = event => {
     this.setState({ term: event.target.value });
   }
 
-  addList = (event) => {
+  addList = event => {
     event.preventDefault()
 
     // TODO: get term from form rather than state
     // TODO: ignore blank input
 
-    const { lists, term } = this.state
-    const id = new Date().getTime();
-    const newList = new List({ id, term, items: [] })
+    this.setState(prevState => {
+      const { lists, term } = prevState
+      const id = new Date().getTime();
+      const newList = new List({ id, term, items: [] });
 
-    this.setState({
-      term: '',
-      lists: { ...lists, [id]: newList }
+      return { term: '', lists: { ...lists, [id]: newList } };
     });
+  }
+
+  removeList = id => {
+    let { ...newLists } = this.state.lists;
+    newLists[id] = null;
+    this.setState({ lists: newLists });
   }
 
   render() {
@@ -76,11 +84,11 @@ export default class App extends React.Component {
 
         <div className="container">
           <div className="wishlist-container">
-            { Object.keys(lists).map((id, index) => <Wishlist key={index} list={lists[id]} />) }
+            {Object.keys(lists).map((id, index) => <Wishlist key={index} removeList={this.removeList} list={lists[id]} />) }
           </div>
 
           <form className="add-list" onSubmit={this.addList}>
-            <input id="add-list" value={term} placeholder="List name" onChange={this.updateTerm} />
+            <input value={term} placeholder="List name" onChange={this.updateTerm} />
             <button className="btn btn--primary">Add New List</button>
           </form>
         </div>
