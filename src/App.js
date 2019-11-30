@@ -1,20 +1,44 @@
 import React from 'react';
+import base from "./firebase";
+
 import './assets/css/App.css';
 
 import List from  './models/List';
 
 export default class App extends React.Component {
-  constructor() {
-    super();
+  state = {
+    term: '',
+    lists: {}
+  };
 
-    const data = localStorage.state ? JSON.parse(localStorage.state) : { lists: [] };
-    let lists = data.lists.map(list => new List(list));
+  componentDidMount() {
+    // first reinstate our localStorage
+    const localStorageRef = localStorage.getItem('christmas-wishlists');
+    if (localStorageRef) {
+      const data = JSON.parse(localStorageRef);
 
-    this.state = { term: '', lists };
+      // TODO: rehidrate items
+      // let lists = data.lists.map(list => new List(list));
+
+      this.setState({ term: '', lists: data.lists });
+    }
+
+    // next sync with database
+    this.ref = base.syncState('/', {
+      context: this,
+      state: "lists"
+    });
   }
 
   componentDidUpdate() {
-    localStorage.state = JSON.stringify(this.state);
+    localStorage.setItem(
+      'christmas-wishlists',
+      JSON.stringify(this.state)
+    );
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   onChange = (event) => {
@@ -25,11 +49,12 @@ export default class App extends React.Component {
     event.preventDefault()
 
     const { lists, term } = this.state
-    const newList = new List({ term })
+    const id = new Date().getTime();
+    const newList = new List({ id, term })
 
     this.setState({
       term: '',
-      lists: [...lists, newList]
+      lists: { ...lists, [id]: newList }
     });
   }
 
@@ -45,7 +70,10 @@ export default class App extends React.Component {
         <div className="container">
           <div className="wishlist-container">
             {
-              this.state.lists.map((item, index) => <div className="wishlist" key={index}>{item.term}</div>)
+              Object.keys(this.state.lists).map((id, index) => {
+                const item = this.state.lists[id];
+                return <div className="wishlist" key={index}>{item.term}</div>
+              })
             }
           </div>
 
@@ -54,8 +82,6 @@ export default class App extends React.Component {
             <button>Submit</button>
           </form>
         </div>
-
-        <button onClick={() => { this.setState({ lists: [] }) }}>Clear Data</button>
       </div>
     );
   }
