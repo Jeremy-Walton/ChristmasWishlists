@@ -49,16 +49,15 @@ export default class App extends React.Component {
   addList = event => {
     event.preventDefault()
 
-    // TODO: get term from form rather than state
-    // TODO: ignore blank input
+    if (this.state.term) {
+      this.setState(prevState => {
+        const { lists, term } = prevState
+        const id = new Date().getTime();
+        const newList = { id, term, items: [] };
 
-    this.setState(prevState => {
-      const { lists, term } = prevState
-      const id = new Date().getTime();
-      const newList = { id, term, items: [] };
-
-      return { term: '', lists: { ...lists, [id]: newList } };
-    });
+        return { term: '', lists: { ...lists, [id]: newList } };
+      });
+    }
   }
 
   removeList = id => {
@@ -85,7 +84,7 @@ export default class App extends React.Component {
 
           <form className="add-list" onSubmit={this.addList}>
             <input value={term} placeholder="List name" onChange={this.updateTerm} />
-            <button className="btn btn--primary">Add New List</button>
+            <button type='submit' className="btn btn--primary">Add New List</button>
           </form>
         </div>
       </div>
