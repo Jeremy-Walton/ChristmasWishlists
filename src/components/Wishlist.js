@@ -75,6 +75,13 @@ export default class Wishlist extends React.Component {
     }
   }
 
+  stringBetween(string, startChar, endChar) {
+    return string.substring(
+      string.lastIndexOf(startChar) + 1,
+      string.lastIndexOf(endChar)
+    )
+  }
+
   renderItems() {
     const { items } = this.state;
     const { list } = this.props;
@@ -87,20 +94,29 @@ export default class Wishlist extends React.Component {
       }
     })
 
+    return Object.keys(filteredItems).map((id, index) => {
+      return this.renderItem({ id, text: items[id].text }, index)
+    })
+  }
+
+  renderItem(item, index) {
+    const { text, id } = item;
+
     return (
-      <div className="item-container">
+      <div key={index} className="item">
         {
-          Object.keys(filteredItems).map((id, index) => {
-            return (
-              <div key={index} className="item">
-                <div className="item__text">{items[id].text}</div>
-                <div className="item__close" onClick={this.removeItem.bind(this, id)}>X</div>
-              </div>
-            );
-          })
+          text.startsWith('[') && text.endsWith(')') ? this.renderLink(text) : (<div className="item__text">{text}</div>)
         }
+        <div className="item__close" onClick={this.removeItem.bind(this, id)}>X</div>
       </div>
-    )
+    );
+  }
+
+  renderLink(text) {
+    const label = this.stringBetween(text, '[', ']');
+    const url = this.stringBetween(text, '(', ')');
+
+    return <a href={url} className="item__text">{label}</a>
   }
 
   render() {
@@ -113,7 +129,9 @@ export default class Wishlist extends React.Component {
           <h1 className='mt-0'>{list.term}</h1>
           <h1 className='wishlist__close' onClick={this.removeList.bind(this)}>X</h1>
         </div>
-        {this.renderItems()}
+        <div className="item-container">
+          {this.renderItems()}
+        </div>
         <form className="add-form" onSubmit={this.addItem}>
           <input value={term} placeholder="Item" onChange={this.updateTerm} />
           <button type='submit' className="btn btn--primary">Add</button>
